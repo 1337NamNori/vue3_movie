@@ -1,24 +1,21 @@
-# vue3_learn
+# Vue3 learn
 
-## Project setup
-```
-npm install
-```
+## Create app
+- `new Vue()` ⮕ `Vue.createApp()`
+- `data` always be a method
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Emits Options: 
+- define events that a component can emit to its parent.
+- remove `.native` 
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Vue Router 
+- `new VueRouter()` ⮕ `createRouter()`
+- `mode: 'history'` ⮕ `history: createWebHistory()`
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Vuex
+- `new Vuex.Store()` ⮕ `createStore()`
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Composition API
+- `data()`, `computed`, `methods` ⮕ `setup()`
+- `ref()`, `computed()`, `watch()`
+- remove `this` keyword

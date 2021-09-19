@@ -1,0 +1,36 @@
+<template>
+    <div class="wrapper">
+        <div class="container mx-auto h-full py-10 text-white flex flex-col justify-end px-6 sm:px-0">
+            <h3 class="text-5xl mb-5">{{ title }}</h3>
+            <p class="text-2xl">{{ text }}</p>
+        </div>
+    </div>
+</template>
+
+<script>
+import {computed} from "vue";
+import {IMAGE_BASE_URL, BACKDROP_SIZE} from "../config";
+
+export default {
+    name: "HeroImage",
+    props: ['image', 'title', 'text'],
+    setup(props) {
+        const imageUrl = computed(() => {
+            return `url(${IMAGE_BASE_URL}${BACKDROP_SIZE}${props.image})`;
+        })
+
+        return {
+            imageUrl,
+        }
+    }
+}
+</script>
+
+<style scoped>
+.wrapper {
+    height: 600px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%), v-bind(imageUrl);
+    background-size: 100%, cover;
+    background-position: center;
+}
+</style>

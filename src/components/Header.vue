@@ -9,7 +9,7 @@
                     </div>
                 </router-link>
                 <div class="tmdb">
-                    <img alt="" class="w-0 sm:w-20" src="../assets/images/tmdb_logo.svg">
+                    <img alt="" class="w-0 sm:w-24" src="../assets/images/tmdb_logo.svg">
                 </div>
             </div>
         </div>

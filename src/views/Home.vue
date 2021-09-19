@@ -7,6 +7,7 @@
                        :title="state.results[0].original_title"
             />
         </transition>
+        <Spinner v-if="isLoading"/>
     </div>
 </template>
 
@@ -14,10 +15,11 @@
 import {ref} from "vue";
 import HeroImage from "../components/HeroImage";
 import apiSettings from "../service/api";
+import Spinner from "../components/Spinner";
 
 export default {
     name: 'Home',
-    components: {HeroImage},
+    components: {Spinner, HeroImage},
     setup() {
         const initialState = {
             page: 0,

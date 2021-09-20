@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home" v-if="!isError">
         <transition name="fade">
             <HeroImage v-if="state.results[0] && !searchTerm"
                        :image="state.results[0].backdrop_path"
@@ -30,11 +30,14 @@
             text="Load more"
         />
     </div>
+    <div v-else>
+        <Error/>
+    </div>
 </template>
 
 <script>
-import {ref, watch} from "vue";
-import apiSettings from "../service/api";
+import {watch} from "vue";
+
 import HeroImage from "../components/HeroImage";
 import Spinner from "../components/Spinner";
 import Grid from "../components/Grid";
@@ -42,41 +45,14 @@ import MovieThumb from "../components/MovieThumb";
 import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
 
+import useHomeFetch from '../composables/useHomeFetch';
+import Error from "../components/Error";
+
 export default {
     name: 'Home',
-    components: {Button, SearchBar, MovieThumb, Grid, Spinner, HeroImage},
+    components: {Error, Button, SearchBar, MovieThumb, Grid, Spinner, HeroImage},
     setup() {
-        const initialState = {
-            page: 0,
-            results: [],
-            total_pages: 0,
-            total_results: 0,
-        }
-
-        const state = ref(initialState);
-        const searchTerm = ref('');
-        const isLoading = ref(false);
-        const isError = ref(false);
-        const isLoadingMore = ref(false);
-
-        const fetchMovies = async (page, searchTerm = '') => {
-            try {
-                isError.value = false;
-                isLoading.value = true;
-
-                const movies = await apiSettings.fetchMovies(searchTerm, page);
-                console.log(movies);
-
-                state.value = {
-                    ...movies,
-                    results: page > 1 ? [...state.value.results, ...movies.results,] : [...movies.results],
-                }
-            } catch
-                (error) {
-                isError.value = true;
-            }
-            isLoading.value = false;
-        }
+        const {state, searchTerm, isLoading, isError, isLoadingMore, fetchMovies} = useHomeFetch;
 
         // search
         watch(searchTerm, () => {

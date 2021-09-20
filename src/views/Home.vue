@@ -7,6 +7,18 @@
                        :title="state.results[0].original_title"
             />
         </transition>
+        <transition name="fade">
+            <Grid v-if="state.results.length > 0" header="Popular Movies">
+                <MovieThumb
+                    v-for="movie in state.results"
+                    :id="movie.id"
+                    :key="movie.id"
+                    :clickable="true"
+                    :image="movie.poster_path"
+                    :title="movie.original_title"
+                />
+            </Grid>
+        </transition>
         <Spinner v-if="isLoading"/>
     </div>
 </template>
@@ -16,10 +28,12 @@ import {ref} from "vue";
 import HeroImage from "../components/HeroImage";
 import apiSettings from "../service/api";
 import Spinner from "../components/Spinner";
+import Grid from "../components/Grid";
+import MovieThumb from "../components/MovieThumb";
 
 export default {
     name: 'Home',
-    components: {Spinner, HeroImage},
+    components: {MovieThumb, Grid, Spinner, HeroImage},
     setup() {
         const initialState = {
             page: 0,

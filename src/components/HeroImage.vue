@@ -1,8 +1,8 @@
 <template>
     <div class="wrapper">
         <div class="container mx-auto h-full py-10 text-white flex flex-col justify-end px-6 sm:px-0">
-            <h3 class="text-5xl mb-5">{{ title }}</h3>
-            <p class="text-2xl">{{ text }}</p>
+            <h3 class="text-3xl sm:text-5xl mb-5">{{ title }}</h3>
+            <p class="text-lg sm:text-2xl">{{ text }}</p>
         </div>
     </div>
 </template>

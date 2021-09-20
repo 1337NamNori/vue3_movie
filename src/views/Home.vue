@@ -36,35 +36,21 @@
 </template>
 
 <script>
-import {watch} from "vue";
-
 import HeroImage from "../components/HeroImage";
 import Spinner from "../components/Spinner";
 import Grid from "../components/Grid";
 import MovieThumb from "../components/MovieThumb";
 import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
+import Error from "../components/Error";
 
 import useHomeFetch from '../composables/useHomeFetch';
-import Error from "../components/Error";
 
 export default {
     name: 'Home',
     components: {Error, Button, SearchBar, MovieThumb, Grid, Spinner, HeroImage},
     setup() {
-        const {state, searchTerm, isLoading, isError, isLoadingMore, fetchMovies} = useHomeFetch;
-
-        // search
-        watch(searchTerm, () => {
-            fetchMovies(1, searchTerm.value);
-        });
-
-        // load more
-        watch([searchTerm, isLoadingMore], () => {
-            if (!isLoadingMore.value) return;
-            fetchMovies(state.value.page + 1, searchTerm.value);
-            isLoadingMore.value = false;
-        });
+        const {state, searchTerm, isLoading, isError, isLoadingMore, fetchMovies} = useHomeFetch();
 
         // initial
         fetchMovies(1);

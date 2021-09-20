@@ -15,15 +15,20 @@
             >
                 <MovieThumb
                     v-for="movie in state.results"
-                    :id="movie.id"
                     :key="movie.id"
-                    :clickable="true"
-                    :image="movie.poster_path"
+                    :id="movie.id"
                     :title="movie.original_title"
+                    :image="movie.poster_path"
+                    :clickable="true"
                 />
             </Grid>
         </transition>
         <Spinner v-if="isLoading"/>
+        <Button
+            v-if="state.page < state.total_pages && !isLoading"
+            :callback="() => {isLoadingMore = true}"
+            text="Load more"
+        />
     </div>
 </template>
 
@@ -35,10 +40,11 @@ import Spinner from "../components/Spinner";
 import Grid from "../components/Grid";
 import MovieThumb from "../components/MovieThumb";
 import SearchBar from "../components/SearchBar";
+import Button from "../components/Button";
 
 export default {
     name: 'Home',
-    components: {SearchBar, MovieThumb, Grid, Spinner, HeroImage},
+    components: {Button, SearchBar, MovieThumb, Grid, Spinner, HeroImage},
     setup() {
         const initialState = {
             page: 0,
@@ -51,6 +57,7 @@ export default {
         const searchTerm = ref('');
         const isLoading = ref(false);
         const isError = ref(false);
+        const isLoadingMore = ref(false);
 
         const fetchMovies = async (page, searchTerm = '') => {
             try {
@@ -58,29 +65,40 @@ export default {
                 isLoading.value = true;
 
                 const movies = await apiSettings.fetchMovies(searchTerm, page);
+                console.log(movies);
 
-                if (page > 1) {
-                    state.value.results = [...movies.results, ...state.value.results];
-                } else {
-                    state.value.results = movies.results;
+                state.value = {
+                    ...movies,
+                    results: page > 1 ? [...state.value.results, ...movies.results,] : [...movies.results],
                 }
-            } catch (error) {
+            } catch
+                (error) {
                 isError.value = true;
             }
             isLoading.value = false;
         }
 
+        // search
         watch(searchTerm, () => {
             fetchMovies(1, searchTerm.value);
-        })
+        });
 
-        fetchMovies(1, searchTerm.value);
+        // load more
+        watch([searchTerm, isLoadingMore], () => {
+            if (!isLoadingMore.value) return;
+            fetchMovies(state.value.page + 1, searchTerm.value);
+            isLoadingMore.value = false;
+        });
+
+        // initial
+        fetchMovies(1);
 
         return {
             state,
             searchTerm,
             isLoading,
             isError,
+            isLoadingMore,
         }
     },
 }

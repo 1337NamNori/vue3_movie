@@ -1,5 +1,5 @@
 import {ref, watch} from "vue";
-import apiSettings from "../service/api";
+import apiService from "../service/api";
 
 const useHomeFetch = () => {
     const initialState = {
@@ -20,7 +20,7 @@ const useHomeFetch = () => {
             isError.value = false;
             isLoading.value = true;
 
-            const movies = await apiSettings.fetchMovies(searchTerm, page);
+            const movies = await apiService.fetchMovies(searchTerm, page);
 
             state.value = {
                 ...movies,

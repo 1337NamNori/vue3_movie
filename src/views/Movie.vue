@@ -18,10 +18,9 @@
 </template>
 
 <script>
-import {ref} from "vue";
 import {useRoute} from "vue-router";
 
-import apiService from "../service/api";
+import useMovieFetch from "../composables/useMovieFetch";
 
 import BreadCrumb from "../components/movie/BreadCrumb";
 import Error from "../components/Error";
@@ -44,33 +43,7 @@ export default {
     },
     setup() {
         const movieId = useRoute().params.id;
-
-        const movie = ref({});
-        const isLoading = ref(false);
-        const isError = ref(false);
-
-        const fetchMovie = async () => {
-            try {
-                isLoading.value = true;
-                isError.value = false;
-
-                const result = await apiService.fetchMovie(movieId);
-                const credits = await apiService.fetchCredits(movieId);
-
-                isLoading.value = false;
-
-                const directors = credits.crew.filter(member => member.job === 'Director');
-
-                movie.value = {
-                    ...result,
-                    directors,
-                    actors: credits.cast,
-                };
-                console.log(movie.value);
-            } catch (error) {
-                isError.value = true;
-            }
-        }
+        const {movie, isError, isLoading, fetchMovie} = useMovieFetch(movieId);
 
         fetchMovie();
 

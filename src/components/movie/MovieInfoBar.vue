@@ -26,7 +26,6 @@ export default {
     props: ['time', 'budget', 'revenue'],
     setup(props) {
         const convertedTime = computed(() => {
-            console.log(props.time)
             return calcTime(props.time);
         });
 

@@ -1,14 +1,18 @@
 <template>
     <div class="home">
         <transition name="fade">
-            <HeroImage v-if="state.results[0]"
+            <HeroImage v-if="state.results[0] && !searchTerm"
                        :image="state.results[0].backdrop_path"
                        :text="state.results[0].overview"
                        :title="state.results[0].original_title"
             />
         </transition>
+        <SearchBar @update:search="searchTerm = $event"/>
         <transition name="fade">
-            <Grid v-if="state.results.length > 0" header="Popular Movies">
+            <Grid
+                v-if="state.results.length > 0"
+                :header="searchTerm ? `Results for '${searchTerm}'` : 'Popular Movies'"
+            >
                 <MovieThumb
                     v-for="movie in state.results"
                     :id="movie.id"
@@ -24,16 +28,17 @@
 </template>
 
 <script>
-import {ref} from "vue";
-import HeroImage from "../components/HeroImage";
+import {ref, watch} from "vue";
 import apiSettings from "../service/api";
+import HeroImage from "../components/HeroImage";
 import Spinner from "../components/Spinner";
 import Grid from "../components/Grid";
 import MovieThumb from "../components/MovieThumb";
+import SearchBar from "../components/SearchBar";
 
 export default {
     name: 'Home',
-    components: {MovieThumb, Grid, Spinner, HeroImage},
+    components: {SearchBar, MovieThumb, Grid, Spinner, HeroImage},
     setup() {
         const initialState = {
             page: 0,
@@ -43,6 +48,7 @@ export default {
         }
 
         const state = ref(initialState);
+        const searchTerm = ref('');
         const isLoading = ref(false);
         const isError = ref(false);
 
@@ -64,10 +70,15 @@ export default {
             isLoading.value = false;
         }
 
-        fetchMovies();
+        watch(searchTerm, () => {
+            fetchMovies(1, searchTerm.value);
+        })
+
+        fetchMovies(1, searchTerm.value);
 
         return {
             state,
+            searchTerm,
             isLoading,
             isError,
         }

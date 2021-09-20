@@ -6,7 +6,10 @@
         <Error/>
     </div>
     <div v-else>
-        <BreadCrumb :title="state.original_title"/>
+        <BreadCrumb :title="movie.original_title"/>
+        <transition name="fade">
+            <MovieInfo :movie="movie"/>
+        </transition>
     </div>
 </template>
 
@@ -14,22 +17,25 @@
 import {ref} from "vue";
 import {useRoute} from "vue-router";
 
+import apiSettings from "../service/api";
+
 import BreadCrumb from "../components/movie/BreadCrumb";
 import Error from "../components/Error";
 import Spinner from "../components/Spinner";
-import apiSettings from "../service/api";
+import MovieInfo from "../components/movie/MovieInfo";
 
 export default {
     name: "Movie",
     components: {
         Error,
         Spinner,
-        BreadCrumb
+        BreadCrumb,
+        MovieInfo,
     },
     setup() {
         const movieId = useRoute().params.id;
 
-        const state = ref({});
+        const movie = ref({});
         const isLoading = ref(false);
         const isError = ref(false);
 
@@ -38,17 +44,16 @@ export default {
                 isLoading.value = true;
                 isError.value = false;
 
-                const movie = await apiSettings.fetchMovie(movieId);
+                const result = await apiSettings.fetchMovie(movieId);
                 const credits = await apiSettings.fetchCredits(movieId);
                 const directors = credits.crew.filter(member => member.job === 'Director');
 
-                state.value = {
-                    ...movie,
+                movie.value = {
+                    ...result,
                     directors,
                     actors: credits.cast,
                 };
-
-                console.log(state.value);
+                console.log(movie);
 
                 isLoading.value = false;
             } catch (error) {
@@ -59,7 +64,7 @@ export default {
         fetchMovie();
 
         return {
-            state,
+            movie,
             isLoading,
             isError,
         }

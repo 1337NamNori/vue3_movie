@@ -15,12 +15,12 @@ export default {
     name: "HeroImage",
     props: ['image', 'title', 'text'],
     setup(props) {
-        const imageUrl = computed(() => {
+        const imageUrlCss = computed(() => {
             return `url(${IMAGE_BASE_URL}${BACKDROP_SIZE}${props.image})`;
         })
 
         return {
-            imageUrl,
+            imageUrlCss,
         }
     }
 }
@@ -29,7 +29,7 @@ export default {
 <style scoped>
 .wrapper {
     height: 600px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%), v-bind(imageUrl);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 41%, rgba(0, 0, 0, 0.65) 100%), v-bind(imageUrlCss);
     background-size: 100%, cover;
     background-position: center;
 }

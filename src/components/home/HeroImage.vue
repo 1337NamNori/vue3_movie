@@ -9,7 +9,7 @@
 
 <script>
 import {computed} from "vue";
-import {IMAGE_BASE_URL, BACKDROP_SIZE} from "../config";
+import {IMAGE_BASE_URL, BACKDROP_SIZE} from "../../config";
 
 export default {
     name: "HeroImage",

@@ -36,11 +36,11 @@
 </template>
 
 <script>
-import HeroImage from "../components/HeroImage";
+import HeroImage from "../components/home/HeroImage";
 import Spinner from "../components/Spinner";
 import Grid from "../components/Grid";
 import MovieThumb from "../components/MovieThumb";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/home/SearchBar";
 import Button from "../components/Button";
 import Error from "../components/Error";
 
@@ -48,7 +48,15 @@ import useHomeFetch from '../composables/useHomeFetch';
 
 export default {
     name: 'Home',
-    components: {Error, Button, SearchBar, MovieThumb, Grid, Spinner, HeroImage},
+    components: {
+        Error,
+        Spinner,
+        HeroImage,
+        SearchBar,
+        Grid,
+        MovieThumb,
+        Button,
+    },
     setup() {
         const {state, searchTerm, isLoading, isError, isLoadingMore, fetchMovies} = useHomeFetch();
 

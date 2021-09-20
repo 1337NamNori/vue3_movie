@@ -13,7 +13,11 @@ import {IMAGE_BASE_URL, BACKDROP_SIZE} from "../../config";
 
 export default {
     name: "HeroImage",
-    props: ['image', 'title', 'text'],
+    props: {
+        image: String,
+        title: String,
+        text: String,
+    },
     setup(props) {
         const imageUrlCss = computed(() => {
             return `url(${IMAGE_BASE_URL}${BACKDROP_SIZE}${props.image})`;

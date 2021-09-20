@@ -23,7 +23,11 @@ import {convertMoney, calcTime} from "../../helpers/convert";
 
 export default {
     name: "MovieInfoBar",
-    props: ['time', 'budget', 'revenue'],
+    props: {
+        time: Number,
+        budget: Number,
+        revenue: Number,
+    },
     setup(props) {
         const convertedTime = computed(() => {
             return calcTime(props.time);

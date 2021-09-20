@@ -13,7 +13,9 @@
 <script>
 export default {
     name: "BreadCrumb",
-    props: ['title'],
+    props: {
+        title: String,
+    },
 }
 </script>
 

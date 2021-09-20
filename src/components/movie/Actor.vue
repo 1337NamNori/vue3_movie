@@ -14,7 +14,11 @@ import NoImage from '../../assets/images/no_image.jpg';
 
 export default {
     name: "Actor",
-    props: ['name', 'image', 'character'],
+    props: {
+        name: String,
+        character: String,
+        image: String,
+    },
     setup(props) {
         const imageUrl = computed(() => {
             return props.image

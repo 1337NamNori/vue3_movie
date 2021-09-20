@@ -23,7 +23,12 @@ import NoImage from "../assets/images/no_image.jpg";
 
 export default {
     name: "MovieThumb",
-    props: ['image', 'title', 'id', 'clickable'],
+    props: {
+        image: String,
+        title: String,
+        clickable: Boolean,
+        id: Number,
+    },
     setup(props) {
         const imageUrl = computed(() => {
             return props.image ? `${IMAGE_BASE_URL}${BACKDROP_SIZE}${props.image}` : NoImage;

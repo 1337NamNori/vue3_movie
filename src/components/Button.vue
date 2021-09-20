@@ -12,7 +12,10 @@
 <script>
 export default {
     name: "Button",
-    props: ['text', 'callback'],
+    props: {
+        text: String,
+        callback: Function,
+    },
 }
 </script>
 

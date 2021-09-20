@@ -55,7 +55,9 @@ import MovieThumb from "../MovieThumb";
 export default {
     name: "MovieInfo",
     components: {MovieThumb},
-    props: ['movie'],
+    props: {
+        movie: Object,
+    },
     setup(props) {
         const backdropUrlCss = computed(() => {
             return props.movie.backdrop_path

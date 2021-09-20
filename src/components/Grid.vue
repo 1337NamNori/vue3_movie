@@ -12,7 +12,9 @@
 <script>
 export default {
     name: "Grid",
-    props: ['header'],
+    props: {
+        header: String,
+    },
 }
 </script>
 

@@ -10,13 +10,15 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
     name: "BreadCrumb",
     props: {
         title: String,
     },
-}
+})
 </script>
 
 <style scoped>

@@ -11,14 +11,14 @@
     </div>
 </template>
 
-<script>
-import {ref, watch} from "vue";
+<script lang="ts">
+import {ref, watch, defineComponent} from "vue";
 
-export default {
+export default defineComponent({
     name: "SearchBar",
     emits: ['update:search'],
     setup(props, context) {
-        const searchTerm = ref('');
+        const searchTerm = ref<string>('');
 
         watch(searchTerm, () => {
             const timer = setTimeout(() => {
@@ -32,7 +32,7 @@ export default {
             searchTerm,
         }
     }
-}
+})
 </script>
 
 <style scoped>

@@ -7,11 +7,11 @@
     </div>
 </template>
 
-<script>
-import {computed} from "vue";
+<script lang="ts">
+import {computed, defineComponent} from "vue";
 import {IMAGE_BASE_URL, BACKDROP_SIZE} from "../../config";
 
-export default {
+export default defineComponent({
     name: "HeroImage",
     props: {
         image: String,
@@ -27,7 +27,7 @@ export default {
             imageUrlCss,
         }
     }
-}
+})
 </script>
 
 <style scoped>

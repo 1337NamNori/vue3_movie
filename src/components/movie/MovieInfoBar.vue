@@ -16,17 +16,26 @@
     </div>
 </template>
 
-<script>
-import {computed} from "vue";
+<script lang="ts">
+import {computed, defineComponent} from "vue";
 
-import {convertMoney, calcTime} from "../../helpers/convert";
+import {convertMoney, calcTime} from "@/helpers/convert";
 
-export default {
+export default defineComponent({
     name: "MovieInfoBar",
     props: {
-        time: Number,
-        budget: Number,
-        revenue: Number,
+        time: {
+            required: true,
+            type: Number,
+        },
+        budget: {
+            required: true,
+            type: Number,
+        },
+        revenue: {
+            required: true,
+            type: Number,
+        },
     },
     setup(props) {
         const convertedTime = computed(() => {
@@ -47,7 +56,7 @@ export default {
             convertedRevenue,
         }
     }
-}
+})
 </script>
 
 <style scoped>

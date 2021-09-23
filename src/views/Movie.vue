@@ -17,20 +17,21 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent} from "vue";
 import {useRoute} from "vue-router";
 
 import useMovieFetch from "../composables/useMovieFetch";
 
-import BreadCrumb from "../components/movie/BreadCrumb";
-import Error from "../components/Error";
-import Spinner from "../components/Spinner";
-import MovieInfo from "../components/movie/MovieInfo";
-import MovieInfoBar from "../components/movie/MovieInfoBar";
-import Grid from "../components/Grid";
-import Actor from "../components/movie/Actor";
+import BreadCrumb from "../components/movie/BreadCrumb.vue";
+import Error from "../components/Error.vue";
+import Spinner from "../components/Spinner.vue";
+import MovieInfo from "../components/movie/MovieInfo.vue";
+import MovieInfoBar from "../components/movie/MovieInfoBar.vue";
+import Grid from "../components/Grid.vue";
+import Actor from "../components/movie/Actor.vue";
 
-export default {
+export default defineComponent({
     name: "Movie",
     components: {
         Error,
@@ -42,7 +43,7 @@ export default {
         Actor,
     },
     setup() {
-        const movieId = useRoute().params.id;
+        const movieId = +useRoute().params.id;
         const {movie, isError, isLoading, fetchMovie} = useMovieFetch(movieId);
 
         fetchMovie();
@@ -53,7 +54,7 @@ export default {
             isError,
         }
     }
-}
+})
 </script>
 
 <style scoped>

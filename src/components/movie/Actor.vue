@@ -6,13 +6,13 @@
     </div>
 </template>
 
-<script>
-import {computed} from "vue";
+<script lang="ts">
+import {computed, defineComponent} from "vue";
 
 import {IMAGE_BASE_URL, POSTER_SIZE} from "../../config";
 import NoImage from '../../assets/images/no_image.jpg';
 
-export default {
+export default defineComponent({
     name: "Actor",
     props: {
         name: String,
@@ -30,7 +30,7 @@ export default {
             imageUrl,
         }
     }
-}
+})
 </script>
 
 <style scoped>

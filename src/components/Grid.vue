@@ -9,13 +9,15 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
     name: "Grid",
     props: {
         header: String,
     },
-}
+})
 </script>
 
 <style scoped>

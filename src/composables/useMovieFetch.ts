@@ -1,22 +1,25 @@
 import {ref} from "vue";
 import apiService from "../service/api";
+import {Credit, Director, MovieDetail} from "@/types";
 
-const useMovieFetch = (movieId) => {
-    const movie = ref({});
-    const isLoading = ref(false);
-    const isError = ref(false);
+const useMovieFetch = (movieId: number) => {
+    const initialMovie = {} as MovieDetail;
+
+    const movie = ref<MovieDetail>(initialMovie);
+    const isLoading = ref<boolean>(false);
+    const isError = ref<boolean>(false);
 
     const fetchMovie = async () => {
         try {
             isLoading.value = true;
             isError.value = false;
 
-            const result = await apiService.fetchMovie(movieId);
-            const credits = await apiService.fetchCredits(movieId);
+            const result: MovieDetail = await apiService.fetchMovie(movieId);
+            const credits: Credit = await apiService.fetchCredits(movieId);
 
             isLoading.value = false;
 
-            const directors = credits.crew.filter(member => member.job === 'Director');
+            const directors: Director[] = credits.crew.filter(member => member.job === 'Director');
 
             movie.value = {
                 ...result,

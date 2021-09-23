@@ -1,5 +1,6 @@
 import {ref, watch} from "vue";
 import apiService from "../service/api";
+import {Movies} from "@/types";
 
 const useHomeFetch = () => {
     const initialState = {
@@ -7,15 +8,15 @@ const useHomeFetch = () => {
         results: [],
         total_pages: 0,
         total_results: 0,
-    }
+    } as Movies
 
-    const state = ref(initialState);
-    const searchTerm = ref('');
-    const isLoading = ref(false);
-    const isError = ref(false);
-    const isLoadingMore = ref(false);
+    const state = ref<Movies>(initialState);
+    const searchTerm = ref<string>('');
+    const isLoading = ref<boolean>(false);
+    const isError = ref<boolean>(false);
+    const isLoadingMore = ref<boolean>(false);
 
-    const fetchMovies = async (page, searchTerm = '') => {
+    const fetchMovies = async (page: number, searchTerm = '') => {
         try {
             isError.value = false;
             isLoading.value = true;

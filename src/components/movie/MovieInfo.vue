@@ -46,17 +46,21 @@
     </div>
 </template>
 
-<script>
-import {computed} from "vue";
+<script lang="ts">
+import {computed, defineComponent, PropType} from "vue";
 
 import {BACKDROP_SIZE, IMAGE_BASE_URL} from "../../config";
-import MovieThumb from "../MovieThumb";
+import MovieThumb from "../MovieThumb.vue";
+import {MovieDetail} from "@/types";
 
-export default {
+export default defineComponent({
     name: "MovieInfo",
     components: {MovieThumb},
     props: {
-        movie: Object,
+        movie: {
+            type: Object as PropType<MovieDetail>,
+            required: true,
+        }
     },
     setup(props) {
         const backdropUrlCss = computed(() => {
@@ -69,7 +73,7 @@ export default {
             backdropUrlCss,
         }
     }
-}
+})
 </script>
 
 <style scoped>

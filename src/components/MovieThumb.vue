@@ -16,12 +16,12 @@
 
 </template>
 
-<script>
-import {computed} from "vue";
+<script lang="ts">
+import {computed, defineComponent} from "vue";
 import {BACKDROP_SIZE, IMAGE_BASE_URL} from "../config";
 import NoImage from "../assets/images/no_image.jpg";
 
-export default {
+export default defineComponent({
     name: "MovieThumb",
     props: {
         image: String,
@@ -38,7 +38,7 @@ export default {
             imageUrl,
         }
     }
-}
+})
 </script>
 
 <style scoped>

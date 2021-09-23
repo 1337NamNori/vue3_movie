@@ -35,18 +35,20 @@
     </div>
 </template>
 
-<script>
-import HeroImage from "../components/home/HeroImage";
-import Spinner from "../components/Spinner";
-import Grid from "../components/Grid";
-import MovieThumb from "../components/MovieThumb";
-import SearchBar from "../components/home/SearchBar";
-import Button from "../components/Button";
-import Error from "../components/Error";
+<script lang="ts">
+import {defineComponent} from "vue";
+
+import HeroImage from "../components/home/HeroImage.vue";
+import Spinner from "../components/Spinner.vue";
+import Grid from "../components/Grid.vue";
+import MovieThumb from "../components/MovieThumb.vue";
+import SearchBar from "../components/home/SearchBar.vue";
+import Button from "../components/Button.vue";
+import Error from "../components/Error.vue";
 
 import useHomeFetch from '../composables/useHomeFetch';
 
-export default {
+export default defineComponent({
     name: 'Home',
     components: {
         Error,
@@ -71,5 +73,5 @@ export default {
             isLoadingMore,
         }
     },
-}
+})
 </script>
